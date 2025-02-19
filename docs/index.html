@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Métodos y Simulación Estadística" />
+
+
+<title> Actividad 2</title>
+
+<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"> </a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore"><span style="color:#034a94">
+<strong>Actividad 2</strong></span></h1>
+<h4 class="author">Métodos y Simulación Estadística</h4>
+
+</div>
+
+
+<p><img src="img/banner3.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>La simulación es una herramienta poderosa en estadística, útil para
+comprender relaciones complejas y estimar valores difíciles de calcular
+directamente. Para ilustrar su aplicación, se plantean los siguientes
+problemas:</p>
+<p></br></br></p>
+<div id="problema-1" class="section level1">
+<h1><span style="color:#034a94"> <strong>Problema 1</strong></span></h1>
+<p><br/></p>
+<div id="estimación-de-la-probabilidad-y-la-media"
+class="section level2">
+<h2><span style="color:#FF7F00"><strong>Estimación de la Probabilidad y
+la Media</strong></span></h2>
+<p>Una empresa de servicio técnico recibe, en promedio, <strong>5
+solicitudes de reparación por hora</strong>. Suponiendo que el
+<em>número de solicitudes</em> sigue una <strong>distribución de
+Poisson</strong>, realiza las siguientes actividades:</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Cálculo de probabilidad teórica:</p>
+<ul>
+<li>Calcula la probabilidad de que en una hora lleguen exactamente
+<strong>3 solicitudes</strong> usando la fórmula de la distribución de
+Poisson. Expresa el resultado como <span
+class="math inline">\(P(X=3)\)</span>.</li>
+</ul></li>
+<li><p>Simulación con una muestra:</p>
+<ul>
+<li>Genera una muestra aleatoria de tamaño <strong>n = 1000</strong> con
+<code>rpois(n, lambda = 5)</code>.</li>
+<li>Calcula la frecuencia relativa para <span
+class="math inline">\(X=3\)</span> (<span
+class="math inline">\(f_n(X=3)\)</span>).</li>
+<li>Compara e interpreta el resultado frente a la probabilidad
+teórica.</li>
+</ul></li>
+<li><p>Análisis de la variabilidad entre muestras:</p>
+<ul>
+<li>Genera <strong>100 muestras aleatorias</strong> de tamaño <strong>n
+= 1000</strong>.</li>
+<li>Calcula la frecuencia relativa para <span
+class="math inline">\(X=3\)</span> en cada muestra.</li>
+<li>Construye un gráfico de dispersión:
+<ul>
+<li><strong>Eje X:</strong> Indexación por cada muestra (1 a 100).</li>
+<li><strong>Eje Y:</strong> Frecuencias relativas <span
+class="math inline">\(f_n(X=3)\)</span>.</li>
+</ul></li>
+<li>Dibuja una línea horizontal en <span
+class="math inline">\(P(X=3)\)</span> y comenta si existe una
+tendencia.</li>
+</ul></li>
+<li><p>Impacto del tamaño muestral:</p>
+<ul>
+<li>Genera <strong>muestras aleatorias</strong> con tamaños: 5, 10, 20,
+30, 40, 50, 60, 70, 80, 90, 100, 200, 300, 400, 500, 600, 700, 800, 900,
+1000.</li>
+<li>Calcula la frecuencia relativa de <span
+class="math inline">\(X=3\)</span> para cada tamaño.</li>
+<li>Construye un gráfico de dispersión:
+<ul>
+<li><strong>Eje X:</strong> Indexación (1 al 20) por cada tamaño
+muestral.</li>
+<li><strong>Eje Y:</strong> Frecuencias relativas <span
+class="math inline">\(f_n(X=3)\)</span>.</li>
+</ul></li>
+<li>Dibuja la línea en <span class="math inline">\(P(X=3)\)</span> y
+describe si aparece una tendencia.</li>
+</ul></li>
+<li><p>Convergencia de la media muestral:</p>
+<ul>
+<li>Genera <strong>100 muestras</strong> de tamaño <strong>n =
+1000</strong>.</li>
+<li>Calcula el promedio muestral de solicitudes en cada muestra.</li>
+<li>Construye un gráfico de dispersión:
+<ul>
+<li><strong>Eje X:</strong> Indexación por cada muestra (1 a 100).</li>
+<li><strong>Eje Y:</strong> Promedios muestrales.</li>
+</ul></li>
+<li>Traza la línea horizontal en la media teórica (<span
+class="math inline">\(\lambda\)</span>) y analiza la tendencia.</li>
+</ul></li>
+<li><p>Impacto del tamaño muestral en la media:</p>
+<ul>
+<li>Genera <strong>muestras aleatorias</strong> con tamaños: 5, 10, 20,
+30, 40, 50, 60, 70, 80, 90, 100, 200, 300, 400, 500, 600, 700, 800, 900,
+1000.</li>
+<li>Calcula el promedio muestral para cada tamaño.</li>
+<li>Construye un gráfico de dispersión:
+<ul>
+<li><strong>Eje X:</strong> Indexación (1 al 20) por cada tamaño
+muestral.</li>
+<li><strong>Eje Y:</strong> Promedios muestrales.</li>
+</ul></li>
+<li>Dibuja la línea horizontal en la media teórica (<span
+class="math inline">\(\lambda\)</span>) y compara si el promedio se
+aproxima a medida que crece el tamaño.</li>
+</ul></li>
+</ol>
+<p><br/><br/></p>
+<div id="condiciones-de-entrega"
+class="section level3 content-box-gray">
+<h3><span style="color:#686868"><strong>Condiciones de
+entrega</strong></span></h3>
+<ul>
+<li><p>La solución se debe presentar en un archivo HTML generado
+mediante RMarkdown (.Rmd).</p></li>
+<li><p>Responde a los ejercicios en orden (de la <strong>a</strong>
+hasta la <strong>f</strong>).</p></li>
+<li><p>Por cada ejercicio, incluye:</p>
+<ol style="list-style-type: decimal">
+<li><strong>Código R:</strong> Con comentarios explicativos.</li>
+<li><strong>Gráficos y cálculos:</strong> Según lo solicitado.</li>
+<li><strong>Interpretación:</strong> Explicación clara de los resultados
+obtenidos.</li>
+</ol></li>
+<li><p>El archivo <code>.Rmd</code> y el HTML generado deben entregarse
+juntos.</p></li>
+<li><p>Establece la semilla con tu código de estudiante:
+<code>set.seed(codigo)</code>.</p></li>
+<li><p>Asegúrate de que todos los códigos compilen correctamente antes
+de la entrega.</p></li>
+</ul>
+</div>
+<p></br></br></br></p>
+</div>
+</div>
+<div id="problema-2" class="section level1">
+<h1><span style="color:#034a94"> <strong>Problema 2</strong></span></h1>
+<p></br></p>
+<div id="propiedades-de-los-estimadores" class="section level2">
+<h2><span style="color:#FF7F00"><strong>Propiedades de los
+Estimadores</strong></span></h2>
+<p>Un centro de atención médica registra el tiempo de espera (en
+minutos) de los pacientes antes de ser atendidos. Se sabe que estos
+tiempos siguen una <strong>distribución Gamma</strong> con parámetros
+conocidos <span class="math inline">\(\alpha = 3\)</span> (forma) y
+<span class="math inline">\(\beta = 2\)</span> (escala). El parámetro
+que se supone desconocido en este problema es la media poblacional <span
+class="math inline">\(\theta = \alpha \beta\)</span>.</p>
+<p>Sea <span class="math inline">\(X_{1}, X_{2}, \dots, X_{n}\)</span>
+una muestra aleatoria de tamaño <span class="math inline">\(n\)</span>
+independiente e identicamente distribuida extraída de esta población. Se
+proponen los siguientes estimadores para <span
+class="math inline">\(\theta\)</span>:</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Estimador de la media muestral:</strong><br />
+<span class="math display">\[ \widehat{\theta_1} = \frac{1}{n}
+\sum_{i=1}^{n} X_{i} \]</span></p></li>
+<li><p><strong>Estimador basado en el rango:</strong><br />
+<span class="math display">\[ \widehat{\theta_2} = \frac{\min(X_{1},
+\dots, X_{n}) + \max(X_{1}, \dots, X_{n})}{2} \]</span></p></li>
+</ol>
+<p>Realiza las siguientes actividades:</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Simulación de estimadores:</p>
+<ul>
+<li>Genera <strong>100 muestras</strong> de tamaño <strong>n =
+50</strong> de una <strong>distribución Gamma</strong> con parámetros
+<span class="math inline">\(\alpha = 3\)</span> y <span
+class="math inline">\(\beta = 2\)</span>. Calcula cada uno de los
+estimadores para cada muestra. Grafica los resultados usando una curva
+de densidad o un histograma de densidades para cada estimador.
+Intrepreta los gráficos. Usa la función de <strong>R</strong>
+<code>rgamma(n, shape = alpha, scale = beta)</code> y una semilla
+<code>set.seed(123)</code> para la reproducibilidad de los resultados.
+Cambia el valor de la semilla (123) por tu código de estudiante.</li>
+</ul></li>
+<li><p>Insesgadez:</p>
+<ul>
+<li>Estima el sesgo de cada estimador comparando su media muestral con
+la media verdadera <span class="math inline">\(\theta = 6\)</span>.
+Comenta cuál es más insesgado.</li>
+</ul></li>
+<li><p>Consistencia:</p>
+<ul>
+<li>Aumenta el tamaño muestral desde <strong>n = 10</strong> hasta
+<strong>n = 1000</strong> (100 valores) y grafica cómo varía la media de
+cada estimador. Describe cuál se aproxima más rápidamente al valor
+verdadero del parámetro.</li>
+</ul></li>
+<li><p>Eficiencia:</p>
+<ul>
+<li>Calcula la varianza muestral de cada estimador y compáralas.
+Identifica cuál es el más eficiente.</li>
+</ul></li>
+</ol>
+</br></br>
+<div id="condiciones-de-entrega-1"
+class="section level3 content-box-gray">
+<h3><span style="color:#686868"><strong>Condiciones de
+entrega</strong></span></h3>
+<ul>
+<li><p>Para generar muestras de la distribución Gamma en
+<strong>R</strong>:</p>
+<ul>
+<li><p>Parámetros de la distribución Gamma</p>
+<pre>
+alpha <- 3  # Forma
+beta <- 2   # Escala
+n <- 50     # Tamaño de muestra
+m <- 100    # Número de muestras
+</pre></li>
+<li><p>Generación de 100 muestras de tamaño n=50</p>
+<pre>
+set.seed(123)  # Para reproducibilidad
+muestras <- replicate(m, rgamma(n, shape = alpha, scale = beta))
+</pre></li>
+</ul></li>
+<li><p>La solución se debe presentar en un archivo HTML generado
+mediante RMarkdown (.Rmd).</p></li>
+<li><p>Responde a los ejercicios en orden (de la <strong>a</strong>
+hasta la <strong>d</strong>).</p></li>
+<li><p>Por cada ejercicio, incluye:</p>
+<ol style="list-style-type: decimal">
+<li><strong>Código R:</strong> Con comentarios explicativos.</li>
+<li><strong>Gráficos y cálculos:</strong> Según lo solicitado.</li>
+<li><strong>Interpretación:</strong> Explicación clara de los resultados
+obtenidos.</li>
+</ol></li>
+<li><p>El archivo <code>.Rmd</code> y el HTML generado deben entregarse
+juntos.</p></li>
+<li><p>Establece la semilla con tu código de estudiante:
+<code>set.seed(codigo)</code>.</p></li>
+<li><p>Asegúrate de que todos los códigos compilen correctamente antes
+de la entrega.</p></li>
+</ul>
+</div>
+<p></br></br></br></p>
+</div>
+</div>
+<div id="problema-3" class="section level1">
+<h1><span style="color:#034a94"> <strong>Problema 3</strong></span></h1>
+<p><br/></p>
+<div id="teorema-del-límite-central" class="section level2">
+<h2><span style="color:#FF7F00"><strong>Teorema del Límite
+Central</strong></span></h2>
+<p></br></p>
+<p>En una planta de fabricación de componentes electrónicos, se modela
+el tiempo de funcionamiento continuo de una máquina antes de necesitar
+mantenimiento mediante una distribución Gamma. El análisis ha
+determinado que el tiempo hasta el primer mantenimiento sigue una
+distribución Gamma con parámetros <span class="math inline">\(\alpha =
+5\)</span> (forma) y <span class="math inline">\(\beta = 400\)</span>
+(escala).</p>
+<p>Realiza las siguientes actividades:</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Cálculo de media y varianza de la población.</p>
+<ul>
+<li>Determina la media y varianza de la población de los tiempos hasta
+que se requiere mantenimiento de las máquinas en este contexto.</li>
+<li>Interpreta los resultados en el contexto del tiempo esperado antes
+del mantenimiento y la variabilidad en los tiempos.</li>
+</ul></li>
+<li><p>Gráfico de la curva de densidad</p>
+<ul>
+<li>Grafica la función de densidad de la distribución Gamma.</li>
+<li>Explica cómo los parámetros <span
+class="math inline">\(\alpha\)</span> (forma) y <span
+class="math inline">\(\beta\)</span> (escala) afectan la forma de la
+curva.</li>
+<li>Interpreta el modelo en relación con el mantenimiento predictivo y
+la probabilidad de fallos prematuros o tardíos.</li>
+</ul></li>
+<li><p>Comparación de parámetros, estimadores y estimaciones</p>
+<ul>
+<li>Toma 10 muestras aleatorias de tamaño <span class="math inline">\(n
+= 200\)</span>. Para cada muestra:
+<ul>
+<li>Elabora un histograma e interperta la distribución de los
+datos.</li>
+<li>Calcula la media y varianza muestral y compara con los valores
+poblacionales.</li>
+<li>Analiza:
+<ul>
+<li>Parámetros: Identifica los parámetros poblacionales.</li>
+<li>Estimadores: Define las fórmulas utilizadas para estimar los
+parámetros.</li>
+<li>Estimaciones: Interpreta los valores obtenidos y su relación con las
+muestras.</li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><p>Explica el Teorema del Límite Central para un <span
+class="math inline">\(n = 500\)</span>:</p>
+<ul>
+<li>Genera 1000 muestras de tamaño <span class="math inline">\(n =
+500\)</span>. Calcula la media muestral de cada muestra. Elabora un
+histograma de las medias muestrales.</li>
+<li>Para cada una de estas muestras, calcula la media muestral.</li>
+<li>Obtén el promedio y la varianza de estas 1000 medias
+muestrales.</li>
+<li>Aplica un test de normalidad (nivel de significancia <span
+class="math inline">\(\alpha = 0.01\)</span>) e interpreta el
+resultado.</li>
+<li>Explica cómo se evidencia el Teorema del Límite Central en el
+comportamiento de las medias muestrales.</li>
+</ul></li>
+<li><p>Explica el Teorema del Límite Central varaindo el <span
+class="math inline">\(n\)</span>:</p>
+<ul>
+<li>Repite el análisis anterior utilizando muestras de tamaños: <span
+class="math inline">\(n = 5, 10, 80, 200, 500, 2000\)</span>.</li>
+<li>Para cada tamaño de muestra:
+<ul>
+<li>Calcula la media muestral.</li>
+<li>Elabora un histograma de las medias muestrales.</li>
+<li>Aplica un test de normalidad (<span class="math inline">\(\alpha =
+0.01\)</span>).</li>
+</ul></li>
+<li>Concluye sobre la relación entre el tamaño muestral y la validez del
+Teorema del Límite Central.</li>
+</ul></li>
+</ol>
+<p></br></br></p>
+<div id="condiciones-de-entrega-2"
+class="section level3 content-box-gray">
+<h3><span style="color:#686868"><strong>Condiciones de
+entrega</strong></span></h3>
+<ul>
+<li><p>La solución se debe presentar en un archivo HTML generado
+mediante RMarkdown (.Rmd).</p></li>
+<li><p>Responde a los ejercicios en orden (de la <strong>a</strong>
+hasta la <strong>e</strong>).</p></li>
+<li><p>Por cada ejercicio, incluye:</p>
+<ol style="list-style-type: decimal">
+<li><strong>Código R:</strong> Con comentarios explicativos.</li>
+<li><strong>Gráficos y cálculos:</strong> Según lo solicitado.</li>
+<li><strong>Interpretación:</strong> Explicación clara de los resultados
+obtenidos.</li>
+</ol></li>
+<li><p>El archivo <code>.Rmd</code> y el HTML generado deben entregarse
+juntos.</p></li>
+<li><p>Establece la semilla con tu código de estudiante:
+<code>set.seed(codigo)</code>.</p></li>
+<li><p>Asegúrate de que todos los códigos compilen correctamente antes
+de la entrega.</p></li>
+</ul>
+</div>
+<p></br></br></br></p>
+</div>
+</div>
+<div id="problema-4" class="section level1">
+<h1><span style="color:#034a94"><strong>Problema 4</strong></span></h1>
+<p><br/></p>
+<div id="estimación-de-intervalos-de-confianza-mediante-bootstrap"
+class="section level2">
+<h2><span style="color:#FF7F00"><strong>Estimación de Intervalos de
+Confianza mediante Bootstrap</strong></span></h2>
+<p></br> Una empresa dedicada a la generación de energía renovable desea
+evaluar el rendimiento de sus 20 generadores eléctricos portátiles,
+alimentados con biocombustible. Estos generadores se utilizan en
+proyectos remotos, donde la eficiencia energética es crucial para
+minimizar costos y reducir la huella ambiental. Para el estudio, se mide
+la eficiencia energética de cada generador, expresada en kilovatios-hora
+por litro de combustible (kWh/L). Los resultados son:</p>
+<pre class="r"><code># Muestra de eficiencia energética (kWh/L)
+muestra &lt;- c(6.12, 5.87, 5.45, 6.33, 5.71, 6.04, 5.92, 5.65, 6.18, 
+             5.78, 5.95, 6.21, 5.63, 5.79, 6.11, 5.88, 6.02, 5.76, 5.85, 6.10)</code></pre>
+<p>El objetivo es estimar un intervalo de confianza al 95% para la
+eficiencia media.</p>
+<p>Realiza las siguientes actividades:</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Normalidad:</p>
+<ul>
+<li>Elabora un histograma y un QQ-plot de la muestra. ¿Según el sesgo,
+podría considerarse normal la población de origen?</li>
+<li>Aplica las pruebas Shapiro-Wilk y Kolmogorov-Smirnov para evaluar la
+normalidad. Expón claramente las hipótesis nula y alternativa.</li>
+<li>Comenta si los resultados sugieren la viabilidad de usar métodos
+paramétricos para calcular intervalos de confianza.</li>
+</ul></li>
+<li><p>Procedimiento Bootstrap:</p>
+<ul>
+<li><p>Calcula la media de la muestra.</p></li>
+<li><p>Genera 1000 muestras bootstrap de tamaño <span
+class="math inline">\(n = 20\)</span> mediante muestreo con
+reemplazo.</p></li>
+<li><p>Calcula la media muestral para cada muestra.</p></li>
+<li><p>Obtén los percentiles 2.5 y 97.5 de las medias
+muestrales.</p></li>
+<li><p>Calcula los intervalos de confianza mediante Bootstrap,
+usando:</p>
+<ul>
+<li>Método Percentil (95 %): <span class="math inline">\((P_{2.5};
+P_{97.5})\)</span></li>
+<li>Método BCa (Sesgo-Corrección): <span class="math inline">\((2\bar{X}
+− P_{97.5}; 2\bar{X} − P_{2.5})\)</span></li>
+</ul></li>
+<li><p>Compara ambos intervalos: ¿Son similares o presentan diferencias
+significativas?</p></li>
+</ul></li>
+<li><p>Método Paramétrico:</p>
+<ul>
+<li>Si se cumplen las condiciones para su aplicación, calcula un
+intervalo de confianza paramétrico.</li>
+<li>Compara este intervalo con los obtenidos mediante métodos no
+paramétricos.</li>
+</ul></li>
+</ol>
+<br/><br/>
+<div id="condiciones-de-entrega-3"
+class="section level3 content-box-gray">
+<h3><span style="color:#686868"><strong>Condiciones de
+entrega</strong></span></h3>
+<ul>
+<li><p>La solución se debe presentar en un archivo HTML generado
+mediante RMarkdown (.Rmd).</p></li>
+<li><p>Responde a los ejercicios en orden (de la <strong>a</strong>
+hasta la <strong>c</strong>).</p></li>
+<li><p>Por cada ejercicio, incluye:</p>
+<ol style="list-style-type: decimal">
+<li><strong>Código R:</strong> Con comentarios explicativos.</li>
+<li><strong>Gráficos y cálculos:</strong> Según lo solicitado.</li>
+<li><strong>Interpretación:</strong> Explicación clara de los resultados
+obtenidos.</li>
+</ol></li>
+<li><p>El archivo <code>.Rmd</code> y el HTML generado deben entregarse
+juntos.</p></li>
+<li><p>Establece la semilla con tu código de estudiante:
+<code>set.seed(codigo)</code>.</p></li>
+<li><p>Asegúrate de que todos los códigos compilen correctamente antes
+de la entrega.</p></li>
+</ul>
+</div>
+<p></br></br></br></p>
+</div>
+</div>
+<div id="problema-5" class="section level1">
+<h1><span style="color:#034a94"><strong>Problema 5</strong></span></h1>
+<p><br/></p>
+<div
+id="análisis-de-potencia-tamaño-del-efecto-y-errores-tipo-i-y-ii-en-una-prueba-de-hipótesis-para-una-sola-población"
+class="section level2">
+<h2><span style="color:#FF7F00"><strong>Análisis de Potencia, Tamaño del
+Efecto y Errores Tipo I y II en una Prueba de Hipótesis para una Sola
+Población</strong></span></h2>
+<p>Esta actividad propone explorar la relación entre el tamaño muestral,
+el tamaño del efecto y la potencia estadística mediante simulaciones. Se
+analizarán diferentes escenarios usando pruebas t para una muestra y se
+interpretarán los resultados obtenidos.</p>
+<p></br> Se parte de una simulación de la presión arterial de 500
+individuos, generada con una distribución normal de media 120 mmHg y
+desviación estándar de 15 mmHg. El laboratorio busca determinar si la
+presión arterial media poblacional difiere significativamente de 120
+mmHg mediante una <strong>prueba t para una muestra</strong>.</p>
+<p>Información para realizar la simulación:</p>
+<ul>
+<li>Distribución de los datos simulados: <span class="math inline">\(X
+\sim N(120, 15)\)</span></li>
+<li>Tamaño muestral: Variable según el caso.</li>
+<li>Semilla: <code>set.seed(123)</code>.</li>
+</ul>
+<p><strong>Caso 1: Impacto del Tamaño Muestral</strong></p>
+<p>Analiza la potencia manteniendo <span class="math inline">\(\alpha =
+0.05\)</span> y variando el tamaño muestral y el tamaño del efecto:</p>
+<ul>
+<li>Tamaños muestrales: <span class="math inline">\(n = 20, 60, 100,
+200, 300, 500\)</span>.</li>
+<li>Tamaños del efecto: <span class="math inline">\(d = 0.2\)</span>
+(pequeño), <span class="math inline">\(d = 0.5\)</span> (mediano), <span
+class="math inline">\(d = 0.8\)</span> (grande).</li>
+<li>Simulaciones: 1000 repeticiones.</li>
+</ul>
+<p>Construye un gráfico:</p>
+<ul>
+<li>Eje X: Tamaño muestral.</li>
+<li>Eje Y: Potencia.</li>
+<li>Curvas: Una para cada tamaño del efecto.</li>
+<li>Visualización: Usa <code>power.t.test</code> y
+<code>ggplot2</code>.</li>
+</ul>
+<p>Responde:</p>
+<ol style="list-style-type: lower-alpha">
+<li>¿Con qué tamaño muestral se alcanza el 80 % de potencia para un
+efecto grande (<span class="math inline">\(d=0.8\)</span>)?</li>
+<li>¿Cuántas observaciones se necesitan para detectar un efecto mediano
+(<span class="math inline">\(d=0.5\)</span>) con una potencia
+adecuada?</li>
+<li>¿Qué ocurre si se incrementa el tamaño muestral más allá de 500
+observaciones para un efecto grande? ¿Es útil?</li>
+</ol>
+<p><strong>Caso 2: Variación del Tamaño del Efecto (d)</strong></p>
+<p>Simula la potencia para diferentes tamaños de efecto manteniendo
+constantes varios niveles de significancia:</p>
+<ul>
+<li>Tamaños del efecto: <span class="math inline">\(d = 0.1, 0.2, 0.5,
+0.8\)</span>.</li>
+<li>Niveles de significancia: <span class="math inline">\(\alpha = 0.01,
+0.025, 0.05, 0.10, 0.15\)</span>.</li>
+<li>Tamaños muestrales: <span class="math inline">\(n = 20, 60, 100,
+140\)</span>.</li>
+<li>Simulaciones: 1000 repeticiones.</li>
+</ul>
+<p>Construye gráficos:</p>
+<ul>
+<li>Uno por cada nivel de significancia.</li>
+<li>Eje X: Tamaño muestral.</li>
+<li>Eje Y: Potencia.</li>
+<li>Curvas: Una para cada tamaño del efecto.</li>
+<li>Visualización: Usa <code>power.t.test</code> y
+<code>ggplot2</code>.</li>
+</ul>
+<p>Responde:</p>
+<ol start="4" style="list-style-type: lower-alpha">
+<li>¿Qué tamaño de muestra se requiere para detectar diferencias
+pequeñas (<span class="math inline">\(d=0.2\)</span>) con al menos 80 %
+de potencia?</li>
+<li>¿En qué escenarios la potencia supera el 80 %?</li>
+<li>¿Cómo afecta un nivel de significancia muy bajo (<span
+class="math inline">\(\alpha = 0.01\)</span>) a la potencia?</li>
+<li>Compara los resultados para <span class="math inline">\(\alpha =
+0.05\)</span> y <span class="math inline">\(\alpha = 0.10\)</span>.
+¿Cuál sería más adecuado en un contexto médico y por qué?</li>
+</ol>
+<p></br></br></br></p>
+<div id="condiciones-de-entrega-4"
+class="section level3 content-box-gray">
+<h3><span style="color:#686868"><strong>Condiciones de
+entrega</strong></span></h3>
+<ul>
+<li><p>La solución se debe presentar en un archivo HTML generado
+mediante RMarkdown (.Rmd).</p></li>
+<li><p>Responde a los ejercicios en orden (de la <strong>a</strong>
+hasta la <strong>g</strong>).</p></li>
+<li><p>Por cada ejercicio, incluye:</p>
+<ol style="list-style-type: decimal">
+<li><strong>Código R:</strong> Con comentarios explicativos.</li>
+<li><strong>Gráficos y cálculos:</strong> Según lo solicitado.</li>
+<li><strong>Interpretación:</strong> Explicación clara de los resultados
+obtenidos.</li>
+</ol></li>
+<li><p>El archivo <code>.Rmd</code> y el HTML generado deben entregarse
+juntos.</p></li>
+<li><p>Establece la semilla con tu código de estudiante:
+<code>set.seed(codigo)</code>.</p></li>
+<li><p>Asegúrate de que todos los códigos compilen correctamente antes
+de la entrega.</p></li>
+</ul>
+</div>
+<!-- #### <span style="color:#696969">**Código caso1.R**</span> -->
+<!-- ```{r, eval=FALSE} -->
+<!-- #Gráfica 1 -->
+<!-- #Se necesita el paquete pwr  -->
+<!-- if(!require(pwr)){install.packages("pwr");library("pwr")} -->
+<!-- # t-TEST -->
+<!-- # Se aplicará power.t.test del paquete stats (ya en R). Calcula la potencia de la prueba t de una o dos muestras, o determina los parámetros para obtener un valor particular de la potencia. -->
+<!-- d<-seq(.1,2,by=.1) # 20 tamaños de los efectos -->
+<!-- n<-1:150 # Tamaños muestrales -->
+<!-- t.test.power.effect <-as.data.frame(do.call("cbind",lapply(1:length(d),function(i) -->
+<!-- { -->
+<!--   sapply(1:length(n),function(j) -->
+<!--   { -->
+<!--     power.t.test(n=n[j],d=d[i],sig.level=0.05,power=NULL,type= "two.sample")$power -->
+<!--   }) -->
+<!-- }))) -->
+<!-- # Si algunas potencias no se pueden calcular, se ajustan a cero: -->
+<!-- t.test.power.effect[is.na(t.test.power.effect)] <- 0  -->
+<!-- colnames(t.test.power.effect)<-paste (d,"effect size") -->
+<!-- #Graficando los resultados -->
+<!-- prueba <-t.test.power.effect #data frame de 150 X 20 (para graficar) -->
+<!-- cuts_num<-c(2,5,8) # cortes -->
+<!-- #Cortes basados en: Cohen, J. (1988). Statistical Power Analysis for the Behavioral Sciences (2nd ed.). Hillsdale, NJ: Lawrence Erlbaum Associates, Publishers. -->
+<!-- cuts_cat<-c("pequeño","medio","grande")  -->
+<!-- columnas <- 1:ncol(prueba) #Lista de los valores 1:20 -->
+<!-- color_linea<-rainbow(length(columnas), alpha=.5) # Lista de 20 colores -->
+<!-- grosor_linea=3 # Grosor de la línea -->
+<!-- #Para el tipo de línea: (“blank”, “solid”, “dashed”, “dotted”, “dotdash”, “longdash”, “twodash”) ó  (0, 1, 2, 3, 4, 5, 6).  -->
+<!-- #Note que lty = “solid” is idéntica a lty=1. -->
+<!-- tipo_linea <- rep(1,length(color_linea))        #Repetir length(color)=20 veces el 1 -->
+<!-- tipo_linea[cuts_num]<-c(2:(length(cuts_num)+1)) #Asignar 2, 3, 4 en las posiciones 2, 5, 8 de tipo_linea -->
+<!-- #Resaltar posiciones importantes -->
+<!-- cuts_num<-c(2,5,8) # Cortes -->
+<!-- #Cortes basados en: Cohen, J. (1988). Statistical Power Analysis for the Behavioral Sciences (2nd ed.). Hillsdale, NJ: Lawrence Erlbaum Associates, Publishers. -->
+<!-- cuts_cat<-c("pequeño","medio","grande")  -->
+<!-- color_linea[cuts_num]<-c("black") -->
+<!-- efecto <- d # Listado de los 20 valores de 20 -->
+<!-- efecto[cuts_num] <- cuts_cat  #Reemplazar en "efecto" las posiciones cuts_num (2, 5, 8) por las categorías de cuts_cat -->
+<!-- par(fig=c(0,.8,0,1),new=TRUE) -->
+<!-- #Gráfica -->
+<!-- plot(1, type="n", #no produce puntos ni líneas -->
+<!--      frame.plot=FALSE,  -->
+<!--      xlab="Tamaño muestral", ylab="Potencia",  -->
+<!--      xlim=c(1,150),  ylim=c(0,1),  -->
+<!--      main="t-Test", axes = FALSE) -->
+<!-- #Editando los ejes, grid, etc. -->
+<!-- abline(v=seq(0,150,by=10), col = "lightgray", lty = "dotted") # Grid vertical -->
+<!-- abline(h=seq(0,1,by=.05), col = "lightgray", lty = "dotted")  # Grid horizontal -->
+<!-- axis(1,seq(0,150,by=10)) # Números en eje X -->
+<!-- axis(2,seq(0,1,by=.05))  # Números en eje Y -->
+<!-- #Plot de las lineas  -->
+<!-- #columnas <- 1:ncol(prueba) # lista de los valores 1:20 -->
+<!-- for(i in 1:length(columnas)) #length(columnas)=20 -->
+<!-- { -->
+<!--   lines(1:150, -->
+<!--         #prueba (data frame de 150 X 20, para graficar) -->
+<!--         #columna <- 1:ncol(prueba) listado de valores 1:20  -->
+<!--         prueba[,columnas[i]], #filtrar "prueba" para valor de columna -->
+<!--         col=color_linea[i],   #color_linea[cuts_num]<-c("black") -->
+<!--         lwd=grosor_linea,     #grosor de cada linea -->
+<!--         lty=tipo_linea[i]     #tipo_linea[cuts_num]<-c(2:(length(cuts_num)+1)) -->
+<!--   ) -->
+<!-- } -->
+<!-- #Leyendas -->
+<!-- par(fig=c(.65,1,0,1),new=TRUE) -->
+<!-- plot.new() -->
+<!-- legend("top",legend=efecto, col=color_linea, lwd=3, lty=tipo_linea, title="Tamaño efecto",  -->
+<!--        bty="n" #Opciones: o (complete box), n (no box), 7, L, C, U -->
+<!-- ) -->
+<!-- #Gráfica 2 -->
+<!-- #plot using ggplot2 -->
+<!-- #library(ggplot2) -->
+<!-- #library(reshape) -->
+<!-- #library(plotly) -->
+<!-- obj <- cbind(size=1:150, prueba) #Agregando el tamaño al data frame "prueba"  -->
+<!-- # Usar melt y unir con "effect" para el mapeo -->
+<!-- #El data frame "obj" se reconstruye con respecto al parámetro id="size".  -->
+<!-- melted <- cbind(reshape::melt(obj, id="size"), effect=rep(d,each=150))  -->
+<!-- p<- ggplot(data=melted, aes(x=size, y=value, color=as.factor(effect))) +  -->
+<!--   geom_line(size=0.7,alpha=.5) + -->
+<!--   ylab("Potencia") +  -->
+<!--   xlab("Tamaño muestral") +  -->
+<!--   ggtitle("t-Test")+ -->
+<!--   theme_bw() + -->
+<!--   #guides(fill=guide_legend(title="Efecto")) -->
+<!--   #scale_fill_discrete(name = "Efecto") -->
+<!--   #labs(fill='Efecto')  -->
+<!--   #scale_fill_manual("Efecto"#,values=c("orange","red") -->
+<!--   scale_color_discrete(name = "Tamaño del efecto")     -->
+<!-- # Interactive plot -->
+<!-- plotly::ggplotly(p) -->
+<!-- ``` -->
+<!-- </br></br> -->
+<!-- #### <span style="color:#696969">**Código caso2.R**</span> -->
+<!-- ```{r, eval=FALSE} -->
+<!-- #library(dplyr)     -->
+<!-- #library(tidyr)    #Para manipulación de datos: separate, gather, spread -->
+<!-- #library(ggplot2)   -->
+<!-- #library(plotly)   #Para curvas de potencias interactivas -->
+<!-- #library(pwr)      #Para cálculo de las potencias -->
+<!-- #Generar cálculos de las potencias con la funcion pwr.t2n.test. -->
+<!-- #Es un t-test para 2 muestras con tamaños diferentes  -->
+<!-- #Aquí: d es el tamaño del efecto, Power= potencia de la prueba= 1-beta):  -->
+<!-- #pwr.t2n.test(n1 = NULL, n2= NULL, d = NULL, sig.level = 0.05, power = NULL,  alternative = c("two.sided",  "less","greater")) -->
+<!-- ptab <- cbind(NULL, NULL)        -->
+<!-- for (i in seq(0,1, length.out = 200)){ -->
+<!--   pwrt1 <- pwr.t2n.test(n1 = 28, n2 = 1406,  -->
+<!--                         sig.level = 0.05, power = NULL,  -->
+<!--                         d = i, alternative="two.sided") -->
+<!--   pwrt2 <- pwr.t2n.test(n1 = 144, n2 = 1290,  -->
+<!--                         sig.level = 0.05, power = NULL,  -->
+<!--                         d = i, alternative="two.sided") -->
+<!--   pwrt3 <- pwr.t2n.test(n1 = 287, n2 = 1147,  -->
+<!--                         sig.level = 0.05, power = NULL,  -->
+<!--                         d = i, alternative="two.sided") -->
+<!--   pwrt4 <- pwr.t2n.test(n1 = 430, n2 = 1004,  -->
+<!--                         sig.level = 0.05, power = NULL,  -->
+<!--                         d = i, alternative="two.sided") -->
+<!--   pwrt5 <- pwr.t2n.test(n1 = 574, n2 = 860,  -->
+<!--                         sig.level = 0.05, power = NULL,  -->
+<!--                         d = i, alternative="two.sided") -->
+<!--   pwrt6 <- pwr.t2n.test(n1 = 717, n2 = 717,  -->
+<!--                         sig.level = 0.05, power = NULL,  -->
+<!--                         d = i, alternative="two.sided") -->
+<!--   #Es un data frame de tamaño 200 por 12:  -->
+<!--   ptab <- rbind(ptab, cbind(pwrt1$d, pwrt1$power, -->
+<!--                             pwrt2$d, pwrt2$power, -->
+<!--                             pwrt3$d, pwrt3$power, -->
+<!--                             pwrt4$d, pwrt4$power, -->
+<!--                             pwrt5$d, pwrt5$power, -->
+<!--                             pwrt6$d, pwrt6$power)) -->
+<!-- } -->
+<!-- #Es un data frame de tamaño 200 por 13 (la 1ra columna es ID) -->
+<!-- ptab <- cbind(seq_len(nrow(ptab)), ptab) -->
+<!-- colnames(ptab) <- c("id","n1=28, n2=1406;effect size","n1=28, n2=1406;power", -->
+<!--                     "n1=144, n2=1290;effect size","n1=144, n2=1290;power", -->
+<!--                     "n1=287, n2=1147;effect size","n1=287, n2=1147;power", -->
+<!--                     "n1=430, n2=1004;effect size","n1=430, n2=1004;power", -->
+<!--                     "n1=574, n2=860;effect size","n1=574, n2=860;power", -->
+<!--                     "n1=717, n2=717;effect size","n1=717, n2=717;power") -->
+<!-- #gather se usa  para "reunir" un par key-value. En este caso, en 3 columnas: ID, variables y respuestas numericas -->
+<!-- temp1 <- ptab %>% as.data.frame() %>%   gather(key = name, value = val, 2:13) -->
+<!-- #Separar celdas en columnas, de acuerdo a una condición (sep=). En este caso, se separó "name" en dos columnas: samples y pruebas  -->
+<!-- temp2 <- temp1 %>%   separate(col = name, into = c("samples", "pruebas"), sep = ";") -->
+<!-- #La función spread hace lo opuesto a gather. Son funciones complementarias.  -->
+<!-- #Es decir, si al resultado de aplicar la función spread le aplicamos la función gather llegamos al dataset original. -->
+<!-- temp3 <- temp2 %>%   spread(key = pruebas, value = val) -->
+<!-- #Convertir la variable "samples" a factor. -->
+<!-- temp3$samples <- factor(temp3$samples,  -->
+<!--                         levels = c("n1=28, n2=1406", "n1=144, n2=1290",  -->
+<!--                                    "n1=287, n2=1147", "n1=430, n2=1004", -->
+<!--                                    "n1=574, n2=860", "n1=717, n2=717") -->
+<!-- ) -->
+<!-- #Gráfica -->
+<!-- p<- ggplot(temp3, aes(x = `effect size`, y = power, color = samples)) + -->
+<!--   geom_line(size=1) +  -->
+<!--   theme_bw() +  -->
+<!--   theme(axis.text=element_text(size=10),  -->
+<!--         axis.title=element_text(size=10),  -->
+<!--         legend.text=element_text(size=10)) + -->
+<!--   geom_vline(xintercept = .54, linetype = 2) + -->
+<!--   geom_hline(yintercept = 0.80, linetype = 2)+ -->
+<!--   labs(x="Effect size", y="Power") + -->
+<!--   scale_color_discrete(name = "Sampling size")  -->
+<!-- # so simple to make interactive plots -->
+<!-- plotly::ggplotly(p) -->
+<!-- ``` -->
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
